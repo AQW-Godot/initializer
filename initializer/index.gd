@@ -115,6 +115,7 @@ func load_packed_from_url(url: String) -> AwaitSignal:
 							HTTPClient.RESPONSE_NOT_FOUND:
 								error_message += "Request failed due to invalid URL."
 				push_error(error_message)
+				_await.error_message = error_message
 				_await.complete.emit(false)
 				return
 		)
@@ -124,7 +125,9 @@ func load_packed_from_url(url: String) -> AwaitSignal:
 		if error != OK:
 			_request_nodes[url].queue_free()
 			_request_nodes.erase(url)
-			push_error("An error occurred while making the HTTP request: %d." % error)
+			var error_message = "An error occurred while making the HTTP request: %d." % error
+			push_error(error_message)
+			_await.error_message = error_message
 			_await.complete.emit(false)
 			return
 
@@ -135,6 +138,7 @@ func load_packed_from_url(url: String) -> AwaitSignal:
 				downloaded_bytes = _request.get_downloaded_bytes()
 				body_size = _request.get_body_size()
 				await get_tree().create_timer(0.1).timeout
+				if _await.error_message: return
 				_await.update.emit(downloaded_bytes, body_size)
 			await get_tree().create_timer(1.0).timeout
 			_await.complete.emit(true)
@@ -148,3 +152,4 @@ func load_packed_from_url(url: String) -> AwaitSignal:
 class AwaitSignal:
 	signal complete(success: bool)
 	signal update(downloaded_bytes: int, body_size: int)
+	var error_message: String
