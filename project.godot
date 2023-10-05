@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="godot-template"
-run/main_scene="res://src/index.tscn"
+config/name="aqw-godot"
+run/main_scene="res://initializer/index.tscn"
 config/use_custom_user_dir=true
-config/custom_user_dir_name="godot-template"
+config/custom_user_dir_name="aqw-godot"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/bg_color=Color(0.054902, 0.0666667, 0.0666667, 1)
 boot_splash/show_image=false

@@ -1,6 +1,6 @@
-## godot-template
+## initializer
 
-> A repository setup
+> Initialize the game
 
 ### How to Use 🤔
 

@@ -8,7 +8,7 @@ on:
 
 env:
   tag_name: ${{ github.ref_name }}
-  project_name: "godot-template"
+  project_name: "aqw-godot"
 
 jobs:
   build:
